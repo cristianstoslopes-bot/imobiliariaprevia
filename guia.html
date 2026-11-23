@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Guia de design · Gestora Imobiliária</title>
+<meta name="description" content="Gestora Imobiliária Sandra Barbosa · CRECI 153963-F. Compra, venda, locação e administração de imóveis no Parque Residencial Cocaia e Zona Sul de São Paulo.">
+<meta name="theme-color" content="#0B2A5B">
+<meta property="og:title" content="Gestora Imobiliária Sandra Barbosa">
+<meta property="og:description" content="Seu imóvel, seu próximo passo. Compra, venda e locação na Zona Sul de SP.">
+<meta property="og:image" content="/img/hero.webp">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%230B2A5B'/%3E%3Cpath d='M10 24 24 12l14 12' fill='none' stroke='%23F26B1D' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M14 22v14h20V22' fill='none' stroke='%23fff' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('tema');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+/* ---------- GUIA ---------- */
+.guide{background:var(--bg-alt);padding-block:48px 96px}
+.guide .wrap{max-width:1080px}
+.g-hero{display:flex;flex-direction:column;gap:12px;margin-bottom:40px}
+.g-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:800}
+.g-hero p{color:var(--muted);max-width:65ch;font-size:1.05rem}
+.g-toc{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.g-toc a{text-decoration:none;font-size:.85rem;font-weight:600;border:1px solid var(--line);background:var(--surface);border-radius:var(--r-pill);padding:6px 14px}
+.g-toc a:hover{border-color:var(--royal);color:var(--royal)}
+.g-sec{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,4vw,40px);margin-top:20px}
+.g-sec h2{font-size:1.6rem;font-weight:800;display:flex;gap:12px;align-items:baseline}
+.g-sec h2 .n{font-family:var(--f-mono);font-size:.85rem;color:var(--orange-ink)}
+.g-sec h3{font-size:1.1rem;margin-top:28px;margin-bottom:8px}
+.g-sec p,.g-sec li{color:var(--ink);max-width:72ch}
+.g-sec ul,.g-sec ol{padding-left:20px;display:grid;gap:6px}
+.g-sec p+p{margin-top:10px}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:20px}
+.sw{border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.sw .c{height:84px;display:flex;align-items:end;padding:10px;font:700 .8rem var(--f-display)}
+.sw .m{padding:10px 12px;font-size:.82rem;display:grid;gap:2px}
+.sw .m b{font-family:var(--f-display)}
+.sw .m code{font-family:var(--f-mono);font-size:.78rem;color:var(--muted)}
+.tbl{overflow-x:auto;margin-top:16px;border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:560px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--surface-2);font-family:var(--f-display);font-size:.8rem;text-transform:uppercase;letter-spacing:.05em}
+tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.pass{color:#137A3B;font-weight:700}.fail{color:#B42318;font-weight:700}
+pre.ascii{background:var(--brand-deep);color:#DCE6F7;border-radius:16px;padding:20px;overflow-x:auto;font:500 .76rem/1.45 var(--f-mono);margin-top:16px}
+pre.ascii .o{color:var(--orange-on-dark)}
+.type-demo{display:grid;gap:14px;margin-top:16px;border:1px solid var(--line);border-radius:16px;padding:20px}
+.type-demo div{display:grid;grid-template-columns:160px minmax(0,1fr);gap:16px;align-items:baseline}
+.type-demo code{font:500 .75rem var(--f-mono);color:var(--muted)}
+@media (max-width:600px){.type-demo div{grid-template-columns:1fr;gap:2px}}
+.btn-demo{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;padding:20px;border-radius:16px;background:var(--surface-2);align-items:center}
+.btn-demo.dark{background:var(--brand)}
+.prompt{position:relative;background:var(--surface-2);border-radius:16px;padding:18px 18px 18px;margin-top:12px;font-size:.92rem;color:var(--brand)}
+.prompt p{max-width:none}
+.copy{margin-top:12px}
+
+.g-sec code{font-family:var(--f-mono);font-size:.85em;background:var(--surface-2);padding:1px 6px;border-radius:6px}
+.g-sec .sw .c{color:inherit}
+.gtop{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding-block:16px}
+.btn-demo .btn-ghost{color:var(--ink)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-house" viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></symbol>
+  <symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 18V7"/><path d="M3 14h18v4"/><path d="M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/></symbol>
+  <symbol id="i-bath" viewBox="0 0 24 24"><path d="M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M6 12V6a2 2 0 0 1 4 0"/><path d="M7 19l-1 2M17 19l1 2"/></symbol>
+  <symbol id="i-area" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h3M4 14h3M9 4v3M14 4v3"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M5 16V11l2-5h10l2 5v5"/><path d="M4 16h16v3H4z"/><circle cx="8" cy="13" r=".8"/><circle cx="16" cy="13" r=".8"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.5-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.5-7.5 10-7.5 10z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5.5c0 4.4 3 8 7 9.5 4-1.5 7-5.1 7-9.5V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="14" r="4"/><path d="m11 11 9-9M17 5l2 2M15 7l2 2"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M2 14h3l4 3h6a2 2 0 0 0 0-4h-4"/><path d="m11 13 6-4a2 2 0 0 1 2.5 3l-5.5 5"/><path d="M8 8a3 3 0 1 1 6 0"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></symbol>
+  <symbol id="i-calc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8M8 13h5"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="m3 6 6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3"/></symbol>
+  <symbol id="i-pool" viewBox="0 0 24 24"><path d="M3 17c1.5 1 3 1 4.5 0s3-1 4.5 0 3 1 4.5 0 3-1 4.5 0"/><path d="M3 21c1.5 1 3 1 4.5 0s3-1 4.5 0 3 1 4.5 0 3-1 4.5 0"/><path d="M8 14V5a2 2 0 0 1 4 0M16 14V5a2 2 0 0 0-4 0M8 9h8"/></symbol>
+  <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M14.5 9.5c-.5-1-1.5-1.5-2.5-1.5-1.5 0-2.5.8-2.5 2s1 1.7 2.5 2 2.5.8 2.5 2-1 2-2.5 2c-1 0-2-.5-2.5-1.5M12 6.5V8M12 16v1.5"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M4 20l1.2-4A8 8 0 1 1 8.4 19z"/><path d="M9 8.5c0 3 2.5 6.5 6.5 6.5l1-1.6-2-1-1 .8c-1-.4-2-1.4-2.4-2.4l.8-1-1-2z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+  <symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v5h-5"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.6M8.2 13.2l7.6 4.6"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></symbol>
+</svg>
+<div style="background:var(--surface);border-bottom:1px solid var(--line)"><div class="wrap gtop">
+  <a class="btn btn-ghost btn-sm" href="./">&larr; Voltar ao site</a>
+  <button class="icon-btn theme-btn" type="button" aria-label="Alternar modo claro e escuro"><svg class="ico moon"><use href="#i-moon"/></svg><svg class="ico sun"><use href="#i-sun"/></svg></button>
+</div></div>
+<div class="guide">
+  <div class="wrap">
+    <div class="g-hero">
+      <span class="spec" style="color:var(--orange-ink)">Guia para desenvolvimento e geração de imagens · v3</span>
+      <h1>Página inicial · Gestora Imobiliária Sandra Barbosa</h1>
+      <p>Especificação da prévia: experiência do usuário, cores com contraste medido, estrutura do layout, tipografia e botões. A estrutura segue os dois templates de referência: foto em tela cheia com véu escuro e uma "placa" branca arredondada que sobe sobre o hero, e blocos bento de cantos grandes.</p>
+      <nav class="g-toc" aria-label="Seções do guia"><a href="#g-ux">1. UX</a><a href="#g-cor">2. Cores</a><a href="#g-wire">3. Wireframe</a><a href="#g-tipo">4. Tipografia e botões</a><a href="#g-ia">5. Prompt para IA</a></nav>
+    </div>
+
+    <section class="g-sec" id="g-ux">
+      <h2><span class="n">01</span>Experiência do usuário</h2>
+      <p>O site tem dois públicos com tarefas diferentes. Quem procura imóvel quer filtrar e ver fotos rápido. Quem é proprietário quer saber quanto vale o imóvel e quem vai cuidar dele. A página inicial atende os dois sem que um atrapalhe o outro: a busca ocupa o centro do hero, e o cartão "Quanto vale o seu imóvel hoje?" fica ao lado, para o proprietário.</p>
+      <h3>Jornada por seção</h3>
+      <ol>
+        <li><b>Barra utilitária (azul escuro):</b> CRECI, horário e WhatsApp sempre visíveis. Responde de cara "é uma corretora registrada?" e "como falo com ela?".</li>
+        <li><b>Header fixo:</b> logo à esquerda; menu Comprar · Alugar · Vender · Administração · Sobre · Contato; à direita, ícone de busca avançada, "Entrar" (área do cliente: favoritos, propostas, boletos de aluguel) e o CTA laranja "Anunciar imóvel". No celular o menu vira hambúrguer e só o CTA de busca e o WhatsApp flutuante ficam visíveis.</li>
+        <li><b>Hero:</b> foto de casa com véu azul da esquerda para a direita, garantindo leitura do título em branco. Título com o slogan da fachada, "Seu imóvel, seu próximo passo.", com "próximo passo" em laranja. A barra de busca tem abas Comprar/Alugar, campos Tipo, Localização (com autocompletar de bairros) e Faixa de preço, mais bairros populares em chips. A faixa de preço troca para valores de aluguel quando a aba Alugar está ativa.</li>
+        <li><b>Placa branca + categorias:</b> a placa sobe 56px sobre a foto (efeito do template alto padrão). Seis atalhos por tipo para quem não quer preencher filtros.</li>
+        <li><b>Destaques:</b> grid de 3 colunas (2 no tablet, 1 no celular) com filtro Todos/Venda/Locação. Cada card: foto 4:3 com selo de finalidade, favorito e contagem de fotos; preço em destaque; título; bairro; quartos, banheiros, vagas e m²; botão "Ver detalhes" e atalho para WhatsApp com a referência do imóvel na mensagem.</li>
+        <li><b>Serviços (bloco azul bento):</b> os cinco serviços da fachada (Compra, Venda, Locação, Administração, Avaliação), cada um com um link de ação.</li>
+        <li><b>Diferenciais:</b> foto do escritório com selo CRECI e quatro motivos: atendimento personalizado, segurança jurídica, conhecimento da região, financiamento.</li>
+        <li><b>CTA proprietário + mapa:</b> segunda chance de conversão para quem quer vender ou alugar, com endereço e botão "Como chegar".</li>
+        <li><b>Rodapé:</b> links úteis, contato completo, redes sociais (Facebook, Instagram, WhatsApp) e newsletter.</li>
+      </ol>
+      <h3>Pontos de conversão (leads)</h3>
+      <ul>
+        <li>WhatsApp em 5 lugares: barra utilitária, cards, CTA, rodapé e botão flutuante. Cada um envia uma mensagem pré-preenchida diferente (<code>?text=</code>) para a corretora saber a origem.</li>
+        <li>Formulário de avaliação (nome, WhatsApp, endereço, tipo) acionado pelo cartão do hero.</li>
+        <li>"Entrar" só é exigido para salvar favoritos ou criar alerta de busca. Navegar e ver detalhes não pede login.</li>
+        <li>Newsletter com um campo só (e-mail).</li>
+      </ul>
+      <h3>Novidades da v3</h3>
+      <ul>
+        <li><b>Busca com filtros:</b> finalidade, faixa de preço com controle duplo (arrastar ou digitar), atalhos de faixa, tipo, bairro, quartos, vagas, área mínima e diferenciais. A lista atualiza na hora e começa do menor preço; dá para ordenar por maior preço, maior área, preço por m² ou mais novos. No celular os filtros abrem numa folha de baixo para cima.</li>
+        <li><b>Página de detalhes</b> (<code>#imovel-REF</code>, link compartilhável): galeria com tela cheia e deslizar, aba Tour 3D, ficha com área, quartos, suítes, vagas, terreno e ano, custos mensais, diferenciais, localização aproximada, agendamento de visita pelo WhatsApp e imóveis parecidos.</li>
+        <li><b>Tour 3D:</b> maquete gerada pela planta de cada imóvel (three.js), com cômodos nomeados, móveis, garagem, piscina e varanda. Botões "Ver por dentro" (tira o telhado e separa os andares), "Noite" (acende as luzes) e "Girar".</li>
+        <li><b>Modo claro e escuro:</b> segue o sistema e pode ser trocado no botão do topo; a escolha fica salva no navegador.</li>
+        <li><b>Sem depoimentos nem números inventados.</b> No lugar entrou "Dúvidas frequentes". Depoimentos reais (Google) podem entrar quando existirem.</li>
+        <li>Avaliação, agendamento e contato abrem o WhatsApp com a mensagem pronta.</li>
+      </ul>
+      <h3>Acessibilidade e performance</h3>
+      <ul>
+        <li>Todos os pares de cor de texto passam WCAG AA (tabela na seção 2). Foco visível com contorno laranja de 3px.</li>
+        <li>Alvos de toque de no mínimo 44px; labels reais em todos os campos.</li>
+        <li>Imagens em WebP/AVIF com <code>loading="lazy"</code> fora da primeira dobra; foto do hero com <code>fetchpriority="high"</code>.</li>
+        <li>Animações leves (hover nos cards, zoom da foto) desligadas com <code>prefers-reduced-motion</code>.</li>
+      </ul>
+    </section>
+
+    <section class="g-sec" id="g-cor">
+      <h2><span class="n">02</span>Cores</h2>
+      <p>Azul transmite confiança e segura a estrutura: header, blocos, rodapé, textos. Laranja aparece só onde há ação ou destaque, para que o olho vá direto aos botões. Os tons foram tirados da fachada da loja.</p>
+      <div class="swatches">
+        <div class="sw"><div class="c" style="background:#071C3D;color:#fff">Azul noite</div><div class="m"><b>Rodapé, barra utilitária</b><code>#071C3D</code></div></div>
+        <div class="sw"><div class="c" style="background:#0B2A5B;color:#fff">Azul marinho</div><div class="m"><b>Cor principal, títulos</b><code>#0B2A5B</code></div></div>
+        <div class="sw"><div class="c" style="background:#1F4FBF;color:#fff">Azul royal</div><div class="m"><b>Links, ícones, ativo</b><code>#1F4FBF</code></div></div>
+        <div class="sw"><div class="c" style="background:#EEF3FB;color:#0B2A5B">Azul névoa</div><div class="m"><b>Fundos de seção, campos</b><code>#EEF3FB</code></div></div>
+        <div class="sw"><div class="c" style="background:#F26B1D;color:#071C3D">Laranja marca</div><div class="m"><b>Botões principais</b><code>#F26B1D</code></div></div>
+        <div class="sw"><div class="c" style="background:#C2470A;color:#fff">Laranja texto</div><div class="m"><b>Texto laranja no branco</b><code>#C2470A</code></div></div>
+        <div class="sw"><div class="c" style="background:#F7801F;color:#071C3D">Laranja claro</div><div class="m"><b>Destaque sobre azul</b><code>#F7801F</code></div></div>
+        <div class="sw"><div class="c" style="background:#4A5878;color:#fff">Cinza azulado</div><div class="m"><b>Texto secundário</b><code>#4A5878</code></div></div>
+      </div>
+      <h3>Contraste medido (WCAG 2.1)</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Combinação</th><th>Uso</th><th>Razão</th><th>AA texto normal (4,5)</th></tr></thead>
+        <tbody>
+          <tr><td>Branco sobre #0B2A5B</td><td>Header escuro, blocos azuis</td><td class="num">14,0 : 1</td><td class="pass">Passa</td></tr>
+          <tr><td>Branco sobre #1F4FBF</td><td>Botão azul em hover</td><td class="num">7,2 : 1</td><td class="pass">Passa</td></tr>
+          <tr><td>#0B2A5B sobre #F26B1D</td><td>Texto dos botões laranja</td><td class="num">4,6 : 1</td><td class="pass">Passa</td></tr>
+          <tr><td>#C2470A sobre branco</td><td>Rótulos e links laranja</td><td class="num">5,0 : 1</td><td class="pass">Passa</td></tr>
+          <tr><td>#F7801F sobre #0B2A5B</td><td>Destaque no título do hero</td><td class="num">5,4 : 1</td><td class="pass">Passa</td></tr>
+          <tr><td>#4A5878 sobre branco</td><td>Texto secundário</td><td class="num">7,1 : 1</td><td class="pass">Passa</td></tr>
+          <tr><td>Branco sobre #F26B1D</td><td>Evitar em texto pequeno</td><td class="num">3,1 : 1</td><td class="fail">Não passa</td></tr>
+          <tr><td>Branco sobre #FF6600</td><td>Combinação comum (#003366 + #FF6600)</td><td class="num">2,9 : 1</td><td class="fail">Não passa</td></tr>
+        </tbody>
+      </table></div>
+      <p style="margin-top:14px">Por isso os botões laranja usam texto azul marinho em negrito, e não branco. Se a cliente preferir texto branco no botão, use o laranja escuro #C2470A como fundo (5,0 : 1).</p>
+      <h3>Proporção de uso</h3>
+      <p>Cerca de 60% branco e azul névoa, 30% azuis, 10% laranja. Nunca dois botões laranja lado a lado; o segundo vira botão contornado.</p>
+    </section>
+
+    <section class="g-sec" id="g-wire">
+      <h2><span class="n">03</span>Wireframe estrutural (desktop, 1240px)</h2>
+<pre class="ascii">
+┌──────────────────────────────────────────────────────────────────────────┐
+│ CRECI 153963-F        Seg–Sex 9h–18h · Sáb 9h–14h     WhatsApp (11) 94403… │ ← barra utilitária #071C3D
+├──────────────────────────────────────────────────────────────────────────┤
+│ [⌂ GESTORA IMOBILIÁRIA]  Comprar Alugar Vender Admin. Sobre Contato        │
+│ [  Sandra.Barbosa     ]                     (⚙ busca) (Entrar) <span class="o">[Anunciar]</span>  │ ← header fixo, branco
+├──────────────────────────────────────────────────────────────────────────┤
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░ FOTO + VÉU AZUL ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+│░ — PARQUE RES. COCAIA · ZONA SUL              ┌────────────────────────┐ ░│
+│░ Seu imóvel,                                  │ PARA PROPRIETÁRIOS     │ ░│
+│░ seu <span class="o">próximo passo.</span>                          │ Quanto vale o seu      │ ░│
+│░ Texto de apoio (1–2 linhas)                  │ imóvel hoje?           │ ░│
+│░ ┌───────────────────────────────────────┐    │ <span class="o">[Quero avaliar]</span>        │ ░│
+│░ │ (Comprar) Alugar                      │    └────────────────────────┘ ░│
+│░ │ [Tipo ▾] [Localização....] [Preço ▾] <span class="o">[Buscar]</span>│                               ░│
+│░ │ Populares: Cocaia Grajaú Interlagos   Busca avançada →                 ░│
+│░ └───────────────────────────────────────┘                               ░│
+│░░░░░░╭──────────────────────────────────────────────────────────╮░░░░░░░│
+├───────┘  PLACA BRANCA (raio 40px, sobe 56px sobre a foto)        └───────┤
+│  [Casas] [Sobrados] [Apartamentos] [Para alugar] [Terrenos] [Comercial]   │
+│                                                                          │
+│  — IMÓVEIS EM DESTAQUE                         (Todos)(Venda)(Locação)   │
+│  Selecionados esta semana                                                │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐                    │
+│  │ [FOTO 4:3] ♡ │  │ [FOTO 4:3] ♡ │  │ [FOTO 4:3] ♡ │                    │
+│  │ R$ 485.000   │  │ R$ 1.900/mês │  │ R$ 349.000   │   × 2 linhas       │
+│  │ Título       │  │ Título       │  │ Título       │                    │
+│  │ ◉ Bairro     │  │ ◉ Bairro     │  │ ◉ Bairro     │                    │
+│  │ 3q 2b 2v 120m²│ │ 2q 1b 1v 58m²│  │ ...          │                    │
+│  │ [Ver detalhes][wa]│ ...         │  │ ...          │                    │
+│  └──────────────┘  └──────────────┘  └──────────────┘                    │
+│                      [ Ver todos os imóveis → ]                          │
+│                                                                          │
+│  ┌────────────────── BLOCO AZUL MARINHO (raio 32px) ───────────────────┐ │
+│  │ — SERVIÇOS   Tudo o que o seu imóvel precisa                         │ │
+│  │ [<span class="o">■</span> Compra] [<span class="o">■</span> Venda] [<span class="o">■</span> Locação] [<span class="o">■</span> Administração] [<span class="o">■</span> Avaliação] │ │
+│  └──────────────────────────────────────────────────────────────────────┘ │
+│                                                                          │
+│  ┌───────────────┐   — POR QUE A GESTORA                                 │
+│  │ FOTO ESCRITÓRIO│  Atendimento de bairro, com o cuidado…              │
+│  │               │   [◇] Atendimento personalizado  [◇] Segurança jurídica│
+│  │ [selo CRECI]  │   [◇] Quem conhece a região      [◇] Financiamento    │
+│  └───────────────┘                                                       │
+│  ┌──────── FAIXA AZUL NÉVOA ─────────────┬────── MAPA + ENDEREÇO ──────┐ │
+│  │ Quer vender ou alugar seu imóvel?     │            📍               │ │
+│  │ <span class="o">[WhatsApp]</span> [Como chegar]              │ R. José Landaeta, 89        │ │
+│  └───────────────────────────────────────┴─────────────────────────────┘ │
+├──────────────────────────────────────────────────────────────────────────┤
+│ RODAPÉ #071C3D                                                           │
+│ Logo + sobre    Imóveis        Links úteis       Contato                 │
+│ (f)(ig)(wa)     Comprar        Sobre             Endereço / tel / horário │
+│                 Alugar…        Financiamento…    Newsletter [e-mail]<span class="o">[Assinar]</span>│
+│ © 2026 · CRECI 153963-F                         Seu imóvel, seu próximo passo│
+└──────────────────────────────────────────────────────────────────────────┘
+                                                        <span class="o">( WhatsApp flutuante )</span>
+</pre>
+      <h3>Hierarquia de componentes</h3>
+<pre class="ascii">
+Home
+├── UtilityBar ............ creci, horario, whatsapp
+├── Header (sticky) ....... Logo, NavMain[6], AdvancedSearchButton, LoginButton, CTA "Anunciar"
+├── Hero
+│   ├── Eyebrow, H1, Lead
+│   ├── SearchBox ......... Tabs[Comprar|Alugar], Tipo, Localização(autocomplete), Faixa, Buscar, ChipsBairros
+│   └── OwnerCard ......... "Quanto vale o seu imóvel hoje?" → modal de avaliação
+├── Plate (main, -56px, radius 40)
+│   ├── CategoryNav[6]
+│   ├── FeaturedProperties  Filter[Todos|Venda|Locação], PropertyCard[6], VerTodos
+│   │   └── PropertyCard .. foto, badges, favorito, nºfotos, preço, título, bairro, quartos/banhos/vagas/m², CTA, WhatsApp
+│   ├── ServicesBento[5]
+│   ├── WhyUs ............. foto + selo CRECI, Diferencial[4]
+│   └── OwnerCTA + MapCard
+├── Footer ................ Sobre+redes, LinksImóveis, LinksÚteis, Contato, Newsletter, Legal
+└── FloatingWhatsApp
+</pre>
+      <h3>Pontos de quebra</h3>
+      <ul>
+        <li><b>≥ 1060px:</b> menu completo; hero em 2 colunas; grid de 3 cards; bento de 5.</li>
+        <li><b>640–1060px:</b> menu hambúrguer; cartão do proprietário abaixo da busca; 2 cards por linha; bento de 3.</li>
+        <li><b>&lt; 640px:</b> busca empilhada (Localização primeiro, botão em largura total); 1 card por linha; WhatsApp flutuante só com ícone.</li>
+      </ul>
+    </section>
+
+    <section class="g-sec" id="g-tipo">
+      <h2><span class="n">04</span>Tipografia e botões</h2>
+      <p><b>Manrope</b> (títulos, preços, botões) tem formas geométricas e abertas, combina com a placa da fachada e continua legível em pesos fortes. <b>Inter</b> no texto corrido. <b>JetBrains Mono</b> só nos rótulos pequenos em caixa alta (eyebrows), herança do template alto padrão. As três estão no Google Fonts.</p>
+      <div class="type-demo">
+        <div><code>H1 · Manrope 800<br>clamp(40px, 5.4vw, 70px) / 1.1</code><span style="font:800 2.4rem/1.1 var(--f-display);letter-spacing:-.02em">Seu próximo passo</span></div>
+        <div><code>H2 · Manrope 800<br>clamp(29px, 3.4vw, 42px)</code><span style="font:800 1.8rem/1.1 var(--f-display);letter-spacing:-.02em">Selecionados esta semana</span></div>
+        <div><code>Preço · Manrope 800 · 23px<br>tabular-nums</code><span style="font:800 1.45rem var(--f-display)">R$ 485.000</span></div>
+        <div><code>H3 · Manrope 700 · 17px</code><span style="font:700 1.05rem var(--f-display)">Sobrado com quintal e churrasqueira</span></div>
+        <div><code>Corpo · Inter 400 · 16px / 1.6</code><span>Imóveis visitados e documentados pela corretora antes de entrar no site.</span></div>
+        <div><code>Eyebrow · JetBrains Mono 500<br>11.5px · caixa alta · +0.12em</code><span class="spec" style="color:var(--orange-ink)">Imóveis em destaque</span></div>
+      </div>
+      <h3>Botões</h3>
+      <ul>
+        <li><b>Primário (laranja):</b> fundo #F26B1D, texto #071C3D Manrope 700, formato pílula (raio 999px), altura 46px (busca: 58px). Hover: #E85D0C, sobe 1px, sombra laranja suave. Um por área visível.</li>
+        <li><b>Secundário (azul):</b> fundo #0B2A5B, texto branco. Hover: #1F4FBF. Para "Ver todos os imóveis" e ações de navegação.</li>
+        <li><b>Contornado:</b> borda 2px #D6E1F3, texto azul marinho. Hover: borda #0B2A5B. Para ações de apoio ("Entrar", "Como chegar").</li>
+        <li><b>Foco:</b> contorno laranja 3px, afastado 3px, em todos.</li>
+        <li><b>Rótulos:</b> verbo + objeto ("Buscar imóveis", "Quero avaliar meu imóvel", "Chamar no WhatsApp"). Evitar "Clique aqui" e "Saiba mais".</li>
+      </ul>
+      <div class="btn-demo"><button class="btn btn-primary" type="button">Buscar imóveis</button><button class="btn btn-blue" type="button">Ver todos os imóveis</button><button class="btn btn-ghost" type="button">Como chegar</button></div>
+      <div class="btn-demo dark"><button class="btn btn-primary" type="button">Quero avaliar meu imóvel</button><button class="btn btn-ghost-light" type="button">Falar com a corretora</button></div>
+      <h3>Formas e espaçamento</h3>
+      <ul>
+        <li>Raios: placa 40px · blocos 32px · cards 20px · campos 16px · botões pílula.</li>
+        <li>Grade de 8px; seções com 72px de respiro vertical; coluna máxima de 1240px.</li>
+        <li>Sombra só no hover dos cards e na busca do hero. Em repouso, os cards usam borda fina #D6E1F3.</li>
+        <li>Ícones de traço (1.8px), estilo Lucide, em azul royal; nos serviços, ícone azul em quadrado laranja.</li>
+      </ul>
+    </section>
+
+    <section class="g-sec" id="g-ia">
+      <h2><span class="n">05</span>Prompt para ferramentas de imagem</h2>
+      <p>Para gerar um mockup estático (Midjourney, DALL·E, Ideogram) a partir deste layout:</p>
+      <div class="prompt"><p id="prompt-txt">High-fidelity website homepage mockup for a Brazilian real estate agency "Gestora Imobiliária Sandra.Barbosa", desktop 1440px, clean and spacious UI. Thin dark navy top bar (#071C3D) with CRECI number, hours and WhatsApp. White sticky header with house-icon logo in navy and orange, menu "Comprar, Alugar, Vender, Administração, Sobre, Contato", outline "Entrar" button and orange pill button "Anunciar imóvel". Full-width hero photo of a modern Brazilian house at dusk with a navy blue gradient overlay from the left, large bold white headline "Seu imóvel, seu próximo passo." with "próximo passo" in orange #F7801F, white rounded search box with tabs Comprar/Alugar and fields Tipo, Localização, Faixa de preço, and an orange "Buscar imóveis" button; a frosted glass card on the right offering free property valuation. A white panel with 40px rounded top corners overlaps the hero, containing six category tiles and a 3-column grid of property cards (4:3 photo, price in bold navy, neighborhood with pin icon, bed/bath/garage/m² icons, orange "Ver detalhes" pill button). Then a navy blue rounded section with five service tiles with orange icon squares. Typography Manrope bold for headings, Inter for body. Palette strictly navy #0B2A5B, royal blue #1F4FBF, light blue #EEF3FB, orange #F26B1D, white. Soft shadows, lots of whitespace, Dribbble-quality, photorealistic UI screenshot --ar 9:16</p></div>
+      <button class="btn btn-ghost btn-sm copy" type="button" id="copy-prompt">Copiar prompt</button>
+      <h3>Fotos para o site real</h3>
+      <ul>
+        <li>As fotos desta prévia vieram do template de referência e são ilustrativas. Para o site final, usar fotos reais dos imóveis da carteira e da fachada/escritório da Rua José Landaeta.</li>
+        <li>Hero: casa ou sobrado típico da Zona Sul, fim de tarde, céu azul, foco à direita (o véu azul cobre a esquerda).</li>
+        <li>Cards: 4:3, horizontais, mínimo 1200px de largura, fachada como primeira foto.</li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<script>
+document.addEventListener('click',function(e){
+  if(e.target.closest('.theme-btn')){var r=document.documentElement,a=r.getAttribute('data-theme'),d=a?a==='dark':matchMedia('(prefers-color-scheme: dark)').matches,n=d?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('tema',n)}catch(x){}}
+  var c=e.target.closest('#copy-prompt');if(c){var el=document.getElementById('prompt-txt');
+    var sel=function(){var rg=document.createRange();rg.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(rg);c.textContent='Texto selecionado, use Ctrl+C'};
+    try{navigator.clipboard.writeText(el.textContent).then(function(){c.textContent='Prompt copiado'},sel)}catch(x){sel()}}
+});
+</script>
+</body>
+</html>
